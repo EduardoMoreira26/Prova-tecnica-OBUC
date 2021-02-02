@@ -1,72 +1,129 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { FiEdit, FiTrash, FiPlus, FiCheck, Fix } from 'react-icons/fi';
+
 import Button from '../../components/Button';
 
 import { Container, ContentMenu, Workspace, Form } from './styles';
 
-import data from '../../data/arrLocaisTrabalho';
+const arrLocaisTrabalho = [];
 
-const Home = () => (
-  <Container>
-    <ContentMenu>
-      <Button>Acessos Administrativos</Button>
-      <Button>Serviços</Button>
-      <Button>Fale Conosco</Button>
-      <Button>Reporte</Button>
-      <Button>Pesquisa de Satisfação</Button>
-      <Button>Prédios</Button>
-      <Button>Locais de Trabalho</Button>
-    </ContentMenu>
-    <Workspace>
-      <h1>Locais de Traballho</h1>
-      <Form>
-        <label htmlFor="Funcionário">
-          Funcionário
-          <br />
-          <input type="text" id="Funcionário" />
-        </label>
+const Home = () => {
+  const [func, setFunc] = useState('');
+  const [building, setBuildind] = useState('');
+  const [local, setLocal] = useState('');
+  const [dataBase, setDataBase] = useState([]);
 
-        <label htmlFor="Prédio">
-          Prédio
-          <br />
-          <select value="" id="Prédio">
-            <option value="" disabled hidden>
-              Selecione uma opção
-            </option>
-            <option value="prédio1">Prédio 1</option>
-            <option value="prédio2">Prédio 2</option>
-            <option value="prédio3">Prédio 3</option>
-          </select>
-        </label>
+  const handleCreateRegister = (e) => {
+    e.preventDefault();
 
-        <label htmlFor="Local de Trabalho">
-          Local de Trabalho
-          <br />
-          <input type="text" id="Local de Trabalho" />
-        </label>
-      </Form>
+    const addNewResgister = {
+      id: uuidv4(),
+      func,
+      building,
+      local,
+    };
 
-      <table>
-        <tr>
-          <td className="headerTable">Funcionário</td>
-          <td className="headerTable">Prédio</td>
-          <td className="headerTable">Local de trabalho</td>
-          <td className="headerTable">Editar / Deletar</td>
-        </tr>
-      </table>
-      {data.map((info) => (
-        <>
-          <table>
+    arrLocaisTrabalho.push(addNewResgister);
+
+    setDataBase(arrLocaisTrabalho);
+
+    setFunc('');
+    setBuildind('');
+    setLocal('');
+  };
+
+  return (
+    <Container>
+      <ContentMenu>
+        <Button>Acessos Administrativos</Button>
+        <Button>Serviços</Button>
+        <Button>Fale Conosco</Button>
+        <Button>Reporte</Button>
+        <Button>Pesquisa de Satisfação</Button>
+        <Button>Prédios</Button>
+        <Button>Locais de Trabalho</Button>
+      </ContentMenu>
+
+      <Workspace>
+        <h1>Locais de Traballho</h1>
+
+        <Form onSubmit={handleCreateRegister}>
+          <label htmlFor="Funcionário">
+            Funcionário
+            <br />
+            <input
+              required
+              name="Funcionario"
+              type="text"
+              id="Funcionário"
+              value={func}
+              onChange={(e) => setFunc(e.target.value)}
+            />
+          </label>
+
+          <label htmlFor="Prédio">
+            Prédio
+            <br />
+            <select
+              required
+              name="Predio"
+              value={building}
+              id="Prédio"
+              onChange={(e) => setBuildind(e.target.value)}
+            >
+              <option value="" disabled hidden>
+                Selecione uma opção
+              </option>
+              <option value="prédio1">Prédio 1</option>
+              <option value="prédio2">Prédio 2</option>
+              <option value="prédio3">Prédio 3</option>
+            </select>
+          </label>
+
+          <label htmlFor="Local de Trabalho">
+            Local de Trabalho
+            <br />
+            <input
+              required
+              type="text"
+              id="Local de Trabalho"
+              name="Local de Trabalho"
+              value={local}
+              onChange={(e) => setLocal(e.target.value)}
+            />
+          </label>
+          <button type="submit">
+            <FiPlus />
+          </button>
+        </Form>
+
+        <table>
+          <tr>
+            <td className="headerTable">Funcionário</td>
+            <td className="headerTable">Prédio</td>
+            <td className="headerTable">Local de trabalho</td>
+            <td className="headerTable" />
+          </tr>
+        </table>
+
+        {dataBase.map((info) => (
+          <table key={info.id}>
             <tr>
-              <td className="contentTable">{info.Funcionário}</td>
-              <td className="contentTable">{info.Prédio}</td>
-              <td className="contentTable">{info.Local}</td>
-              <td className="contentTable">{info.Local}</td>
+              <td className="contentTable">{info.func}</td>
+              <td className="contentTable">{info.building}</td>
+              <td className="contentTable">{info.local}</td>
+              <td className="contentTable">
+                <FiEdit />
+                <FiTrash />
+              </td>
             </tr>
           </table>
-        </>
-      ))}
-    </Workspace>
-  </Container>
-);
+        ))}
+      </Workspace>
+    </Container>
+  );
+};
 
 export default Home;

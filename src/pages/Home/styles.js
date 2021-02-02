@@ -49,6 +49,10 @@ export const Workspace = styled.div`
     td:nth-last-child(1) {
       width: 150px;
     }
+
+    svg {
+      margin: 0 20px;
+    }
   }
 `;
 
@@ -76,5 +80,20 @@ export const Form = styled.form`
     outline: 0;
     padding: 0 5px;
     margin-right: 10px;
+  }
+
+  button {
+    border: none;
+    background: #fff;
+  }
+
+  svg {
+    margin-top: 30px;
+    font-size: 20px;
+    transition: font-size 0.1s;
+
+    &:hover {
+      font-size: 23px;
+    }
   }
 `;
