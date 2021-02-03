@@ -48,8 +48,6 @@ const Home = () => {
 
     arrLocaisTrabalho.push(addNewResgister);
 
-    console.log(arrLocaisTrabalho);
-
     setDataBase(arrLocaisTrabalho);
 
     setFunc('');
@@ -150,10 +148,7 @@ const Home = () => {
         {dataBase.length > 0 && (
           <div>
             {dataBase.map((info, index) => (
-              <ListItem
-                onChange={(event) => updateRegister(event, index)}
-                key={info.id}
-              >
+              <ListItem key={info.id}>
                 <Input
                   name="Funcionario"
                   type="text"
@@ -186,7 +181,7 @@ const Home = () => {
                   <button onClick={updateRegister}>
                     <FiEdit />
                   </button>
-                  <button onClick={handleRemoveRegister}>
+                  <button onClick={() => handleRemoveRegister(info.id)}>
                     <FiTrash />
                   </button>
                 </ContainerButtons>
