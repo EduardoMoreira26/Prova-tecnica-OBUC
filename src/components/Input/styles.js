@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   input {
     text-align: center;
-    width: 215px;
+    width: 200px;
     height: 56px;
     border-radius: 3px;
     background: #fff;
@@ -13,7 +13,6 @@ export const Container = styled.div`
     padding: 0 5px;
     margin: 0 1px;
   }
-
   button {
     border: none;
     background: #fff;

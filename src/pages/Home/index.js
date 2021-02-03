@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-alert */
 /* eslint-disable react/button-has-type */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { FiEdit, FiTrash, FiPlus, FiCheck, Fix } from 'react-icons/fi';
+import { v4 as uuidv4 } from 'uuid';
+import { FiEdit, FiTrash, FiPlus } from 'react-icons/fi';
 
 import {
   Container,
@@ -32,7 +31,6 @@ const Home = () => {
     }
     return [];
   });
-
   useEffect(() => {
     sessionStorage.setItem('@Obuc:dataBase', JSON.stringify(dataBase));
   }, [dataBase]);
@@ -41,6 +39,7 @@ const Home = () => {
     e.preventDefault();
 
     const addNewResgister = {
+      id: uuidv4(),
       func,
       building,
       local,
@@ -62,11 +61,10 @@ const Home = () => {
   };
 
   const handleRemoveRegister = (id) => {
-    if (window.confirm('Deseja exluir?')) {
-      const itensCopy = Array.from(dataBase);
-      itensCopy.splice(id, 1);
-      setDataBase(itensCopy);
-    }
+    const registerCopy = Array.from(dataBase);
+    registerCopy.splice(id, 1);
+
+    setDataBase(registerCopy);
   };
 
   return (
@@ -82,9 +80,9 @@ const Home = () => {
       </ContentMenu>
 
       <Workspace>
-        <h1>Locais de Traballho</h1>
+        <h1>Locais de Trabalho</h1>
 
-        <Form value="text" onSubmit={handleCreateRegister}>
+        <Form onSubmit={handleCreateRegister}>
           <label htmlFor="Funcionário">
             Funcionário
             <br />
@@ -137,29 +135,31 @@ const Home = () => {
         </Form>
 
         <table>
-          <tr>
-            <td className="headerTable">Funcionário</td>
-            <td className="headerTable">Prédio</td>
-            <td className="headerTable">Local de trabalho</td>
-            <td className="headerTable" />
-          </tr>
+          <tbody>
+            <tr>
+              <td className="headerTable">Funcionário</td>
+              <td className="headerTable">Prédio</td>
+              <td className="headerTable">Local de trabalho</td>
+              <td className="headerTable" />
+            </tr>
+          </tbody>
         </table>
 
         {dataBase.length > 0 && (
           <div>
-            {dataBase.map((info, index) => (
+            {dataBase.map((info) => (
               <ListItem key={info.id}>
                 <Input
                   name="Funcionario"
                   type="text"
                   id="Funcionário"
-                  value={info.func}
+                  defaultValue={info.func}
                 />
 
                 <select
                   name="Predio"
                   type="select"
-                  value={info.building}
+                  defaultValue={info.building}
                   id="Prédio"
                 >
                   <option value="" disabled hidden>
@@ -174,7 +174,7 @@ const Home = () => {
                   type="text"
                   id="Local de Trabalho"
                   name="Local de Trabalho"
-                  value={info.local}
+                  defaultValue={info.local}
                 />
 
                 <ContainerButtons>
