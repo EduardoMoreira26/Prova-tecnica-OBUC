@@ -35,24 +35,37 @@ export const Workspace = styled.div`
       padding: 0 5px;
       color: #fff;
     }
+  }
+`;
 
-    .contentTable {
-      background: #e2e2e2;
-      height: 56px;
-      width: 230px;
-      border-radius: 3px;
-      border: 0;
-      color: #000;
-      padding: 0 5px;
-    }
+export const ListItem = styled.form`
+  display: flex;
 
-    td:nth-last-child(1) {
-      width: 150px;
-    }
+  select {
+    text-align: center;
+    width: 215px;
+    height: 56px;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #c9c9c9;
+    background: #f2f2f2;
+    outline: 0;
+    padding: 0 5px;
+    margin: 0 1px;
+  }
+`;
 
-    svg {
-      margin: 0 20px;
-    }
+export const ContainerButtons = styled.div`
+  background: #f2f2f2;
+  border: 1px solid #c9c9c9;
+  height: 56px;
+  width: 210px;
+  border-radius: 3px;
+  text-align: center;
+
+  button {
+    margin: 20px 10px;
+    border: none;
   }
 `;
 
